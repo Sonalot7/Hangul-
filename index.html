@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hangul Duo — Learn Korean</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --baby-pink: #ffd9e8;
+      --dark-pink: #ff4d94;
+      --accent: #ff6fa3;
+      --card-bg: #fff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Baloo 2', cursive, sans-serif;
+      background: linear-gradient(180deg, var(--baby-pink), #fff);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: #4a2b39;
+    }
+    .app {
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 500px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+      position: relative;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.95);}
+      to {opacity: 1; transform: scale(1);}
+    }
+    h1 {
+      font-size: 2rem;
+      background: linear-gradient(90deg, var(--dark-pink), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+    }
+    .question {
+      font-size: 1.3rem;
+      margin: 10px 0 20px;
+    }
+    .options {
+      display: grid;
+      gap: 12px;
+    }
+    .option {
+      padding: 14px;
+      border: 2px solid var(--baby-pink);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .option:hover {
+      background: var(--baby-pink);
+      transform: translateY(-3px);
+    }
+    .next-btn {
+      background: var(--dark-pink);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 10px;
+      display: none;
+    }
+    .credit {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: var(--dark-pink);
+      font-weight: 600;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 4px #fff; }
+      to { text-shadow: 0 0 12px var(--accent); }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>🌸 Learn Hangul 🌸</h1>
+    <div id="lesson">
+      <!-- dynamic content -->
+    </div>
+    <button class="next-btn" id="nextBtn">Next ➡</button>
+    <div class="credit">Made by Sonal Shaktawat 💗</div>
+  </div>
+
+  <script>
+    const lessons = [
+      {
+        question: "What is the sound of ㅏ ?",
+        options: ["a (ah)", "eo (uh)", "o", "u"],
+        answer: 0
+      },
+      {
+        question: "Which character is 'n'?",
+        options: ["ㄱ", "ㄴ", "ㄷ", "ㅁ"],
+        answer: 1
+      },
+      {
+        question: "Combine ㄱ + ㅏ = ?",
+        options: ["나", "다", "가", "머"],
+        answer: 2
+      },
+      {
+        question: "Great! 👏🏻 You finished basics!",
+        options: [],
+        answer: null
+      }
+    ];
+
+    let currentLesson = 0;
+    const lessonEl = document.getElementById("lesson");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function showLesson(index) {
+      const lesson = lessons[index];
+      lessonEl.innerHTML = `
+        <div class="question">${lesson.question}</div>
+        <div class="options">
+          ${lesson.options.map((opt, i) =>
+            `<div class="option" data-index="${i}">${opt}</div>`).join("")}
+        </div>
+      `;
+      nextBtn.style.display = "none";
+      document.querySelectorAll(".option").forEach(opt => {
+        opt.addEventListener("click", () => selectOption(opt, lesson.answer));
+      });
+    }
+
+    function selectOption(element, correctIndex) {
+      const index = parseInt(element.getAttribute("data-index"));
+      if (index === correctIndex) {
+        element.style.background = "#b3ffcc";
+        element.style.borderColor = "#1db954";
+        nextBtn.style.display = "block";
+      } else {
+        element.style.background = "#ffcccc";
+        element.style.borderColor = "#ff4d4d";
+      }
+    }
+
+    nextBtn.addEventListener("click", () => {
+      currentLesson++;
+      if (currentLesson < lessons.length) {
+        showLesson(currentLesson);
+      } else {
+        lessonEl.innerHTML = `<div class="question">🏆 Congratulations! You finished this module!</div>`;
+        nextBtn.style.display = "none";
+      }
+    });
+
+    showLesson(currentLesson);
+  </script>
+</body>
+</html>
