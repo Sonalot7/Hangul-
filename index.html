@@ -1,177 +1,262 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hangul Duo — Learn Korean</title>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap" rel="stylesheet">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weather App</title>
 
-  <style>
-    :root {
-      --baby-pink: #ffd9e8;
-      --dark-pink: #ff4d94;
-      --accent: #ff6fa3;
-      --card-bg: #fff;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Baloo 2', cursive, sans-serif;
-      background: linear-gradient(180deg, var(--baby-pink), #fff);
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      color: #4a2b39;
-    }
-    .app {
-      background: var(--card-bg);
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      width: 90%;
-      max-width: 500px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      text-align: center;
-      position: relative;
-      animation: fadeIn 0.5s ease;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: scale(0.95);}
-      to {opacity: 1; transform: scale(1);}
-    }
-    h1 {
-      font-size: 2rem;
-      background: linear-gradient(90deg, var(--dark-pink), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin: 0;
-    }
-    .question {
-      font-size: 1.3rem;
-      margin: 10px 0 20px;
-    }
-    .options {
-      display: grid;
-      gap: 12px;
-    }
-    .option {
-      padding: 14px;
-      border: 2px solid var(--baby-pink);
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .option:hover {
-      background: var(--baby-pink);
-      transform: translateY(-3px);
-    }
-    .next-btn {
-      background: var(--dark-pink);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-top: 10px;
-      display: none;
-    }
-    .credit {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      font-size: 14px;
-      color: var(--dark-pink);
-      font-weight: 600;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 4px #fff; }
-      to { text-shadow: 0 0 12px var(--accent); }
-    }
-  </style>
+<style>
+/* ----------------------- */
+/* RESET + GLOBAL */
+/* ----------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: #dfefff; /* Light Blue */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Neumorphic soft shadow base */
+:root {
+  --bg: #dfefff;
+  --shadow-light: rgba(255, 255, 255, 0.9);
+  --shadow-dark: rgba(0, 0, 0, 0.12);
+}
+
+/* ----------------------- */
+/* CARD */
+/* ----------------------- */
+.card {
+  width: 900px;
+  height: 650px;
+  padding: 35px;
+  border-radius: 30px;
+
+  background: var(--bg);
+
+  /* Neumorphism */
+  box-shadow:
+      25px 25px 55px var(--shadow-dark),
+      -25px -25px 55px var(--shadow-light);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 42px;
+  font-weight: 800;
+  color: #163b60;
+  margin-bottom: 25px;
+}
+
+/* ----------------------- */
+/* INPUT + BUTTON */
+/* ----------------------- */
+.search-row {
+  width: 100%;
+  display: flex;
+  gap: 18px;
+}
+
+.input {
+  flex: 1;
+  height: 52px;
+  border-radius: 16px;
+  border: none;
+  padding: 0 18px;
+  background: var(--bg);
+
+  font-size: 20px;
+
+  box-shadow:
+    inset 8px 8px 16px var(--shadow-dark),
+    inset -8px -8px 16px var(--shadow-light);
+}
+
+.get-btn {
+  min-width: 150px;
+  height: 52px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+
+  background: var(--bg);
+  font-size: 18px;
+  font-weight: 600;
+  color: #164b80;
+
+  /* Elevated soft shadow */
+  box-shadow:
+    -8px -8px 16px var(--shadow-light),
+    8px 8px 16px var(--shadow-dark);
+}
+
+.get-btn:active {
+  box-shadow:
+    inset 8px 8px 16px var(--shadow-dark),
+    inset -8px -8px 16px var(--shadow-light);
+}
+
+/* ----------------------- */
+/* ICON + TEMP */
+/* ----------------------- */
+.icon {
+  margin-top: 40px;
+}
+
+.temp {
+  margin-top: 18px;
+  font-size: 90px;
+  font-weight: 800;
+  color: #0b2a43;
+
+  text-shadow: 
+      4px 4px 6px rgba(0,0,0,0.1),
+      -2px -2px 4px rgba(255,255,255,0.7);
+}
+
+.desc {
+  margin-top: 8px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #274761;
+}
+
+/* ----------------------- */
+/* STATS BOXES */
+/* ----------------------- */
+.stats {
+  position: absolute;
+  bottom: 32px;
+  left: 34px;
+  right: 34px;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 22px;
+}
+
+.stat {
+  flex: 1;
+  padding: 22px;
+  border-radius: 20px;
+  text-align: left;
+
+  background: var(--bg);
+
+  /* soft raised */
+  box-shadow:
+    -10px -10px 20px var(--shadow-light),
+     10px 10px 20px var(--shadow-dark);
+}
+
+.stat h3 {
+  font-size: 18px;
+  color: #446b8a;
+  margin-bottom: 6px;
+}
+
+.stat p {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0c395e;
+}
+</style>
 </head>
+
 <body>
-  <div class="app">
-    <h1>🌸 Learn Hangul 🌸</h1>
-    <div id="lesson">
-      <!-- dynamic content -->
-    </div>
-    <button class="next-btn" id="nextBtn">Next ➡</button>
-    <div class="credit">Made by Sonal Shaktawat 💗</div>
+<div class="card" id="app">
+
+  <h1>Weather App</h1>
+
+  <div class="search-row">
+    <input id="cityInput" class="input" value="london">
+    <button id="getBtn" class="get-btn">Get Weather</button>
   </div>
 
-  <script>
-    const lessons = [
-      {
-        question: "What is the sound of ㅏ ?",
-        options: ["a (ah)", "eo (uh)", "o", "u"],
-        answer: 0
-      },
-      {
-        question: "Which character is 'n'?",
-        options: ["ㄱ", "ㄴ", "ㄷ", "ㅁ"],
-        answer: 1
-      },
-      {
-        question: "Combine ㄱ + ㅏ = ?",
-        options: ["나", "다", "가", "머"],
-        answer: 2
-      },
-      {
-        question: "Great! 👏🏻 You finished basics!",
-        options: [],
-        answer: null
-      }
-    ];
+  <div class="icon" id="iconContainer">
+    <!-- default icon -->
+    <svg width="120" height="120" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="18" fill="#ffffffcc"/>
+    </svg>
+  </div>
 
-    let currentLesson = 0;
-    const lessonEl = document.getElementById("lesson");
-    const nextBtn = document.getElementById("nextBtn");
+  <div class="temp" id="tempText">19°C</div>
+  <div class="desc" id="descText">few clouds</div>
 
-    function showLesson(index) {
-      const lesson = lessons[index];
-      lessonEl.innerHTML = `
-        <div class="question">${lesson.question}</div>
-        <div class="options">
-          ${lesson.options.map((opt, i) =>
-            `<div class="option" data-index="${i}">${opt}</div>`).join("")}
-        </div>
-      `;
-      nextBtn.style.display = "none";
-      document.querySelectorAll(".option").forEach(opt => {
-        opt.addEventListener("click", () => selectOption(opt, lesson.answer));
-      });
-    }
+  <div class="stats">
+    <div class="stat">
+      <h3>Feels like</h3>
+      <p id="feels">19</p>
+    </div>
+    <div class="stat">
+      <h3>Humidity</h3>
+      <p id="humidity">58%</p>
+    </div>
+    <div class="stat">
+      <h3>Wind</h3>
+      <p id="wind">0.89 m/s</p>
+    </div>
+  </div>
 
-    function selectOption(element, correctIndex) {
-      const index = parseInt(element.getAttribute("data-index"));
-      if (index === correctIndex) {
-        element.style.background = "#b3ffcc";
-        element.style.borderColor = "#1db954";
-        nextBtn.style.display = "block";
-      } else {
-        element.style.background = "#ffcccc";
-        element.style.borderColor = "#ff4d4d";
-      }
-    }
+</div>
 
-    nextBtn.addEventListener("click", () => {
-      currentLesson++;
-      if (currentLesson < lessons.length) {
-        showLesson(currentLesson);
-      } else {
-        lessonEl.innerHTML = `<div class="question">🏆 Congratulations! You finished this module!</div>`;
-        nextBtn.style.display = "none";
-      }
-    });
+<script>
+const API_KEY = "dae989ade22601682e2c43212e733d35";
 
-    showLesson(currentLesson);
-  </script>
+const cityInput = document.getElementById("cityInput");
+const getBtn = document.getElementById("getBtn");
+const tempText = document.getElementById("tempText");
+const descText = document.getElementById("descText");
+const feels = document.getElementById("feels");
+const humidity = document.getElementById("humidity");
+const wind = document.getElementById("wind");
+const iconContainer = document.getElementById("iconContainer");
+
+function sunIcon(){
+  return `<svg width="120" height="120"><circle cx="60" cy="60" r="35" fill="#fff"/></svg>`;
+}
+
+function cloudIcon(){
+  return `<svg width="120" height="120"><ellipse cx="60" cy="75" rx="40" ry="25" fill="#fff"/></svg>`;
+}
+
+function render(data){
+  tempText.innerHTML = Math.round(data.main.temp) + "°C";
+  descText.textContent = data.weather[0].description;
+  feels.textContent = Math.round(data.main.feels_like);
+  humidity.textContent = data.main.humidity + "%";
+  wind.textContent = data.wind.speed + " m/s";
+
+  const iconCode = data.weather[0].icon;
+  iconContainer.innerHTML = iconCode.includes("01") ? sunIcon() : cloudIcon();
+}
+
+async function fetchWeather(city){
+  try{
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`);
+    const data = await res.json();
+    render(data);
+  } catch(e){
+    alert("City not found");
+  }
+}
+
+fetchWeather("London");
+
+getBtn.onclick = () => fetchWeather(cityInput.value);
+cityInput.onkeydown = e => { if(e.key === "Enter") fetchWeather(cityInput.value); };
+</script>
+
 </body>
 </html>
