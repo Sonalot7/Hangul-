@@ -264,7 +264,12 @@ function render(data){
   humidity.textContent = data.main.humidity + "%";
   wind.textContent = data.wind.speed + " m/s";
 
-  const icon = data.weather[0].icon;
+  // --- WEATHER ICON FIX ---
+  const iconCode = data.weather[0].icon;  
+  const iconURL = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
+
+  iconContainer.innerHTML = `<img src="${iconURL}" width="140">`;
+}
 
   // AUTOMATIC WEATHER ICONS
   if (icon.startsWith("01")) iconContainer.innerHTML = sunIcon();                // clear sky
