@@ -6,9 +6,7 @@
 <title>Weather App</title>
 
 <style>
-/* ----------------------- */
-/* RESET + GLOBAL */
-/* ----------------------- */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -16,160 +14,150 @@
   font-family: "Inter", sans-serif;
 }
 
+/* GRADIENT BACKGROUND (unchanged) */
 body {
   height: 100vh;
-  background: #dfefff; /* Light Blue */
+  background: linear-gradient(135deg, #1da1f2 0%, #4ad4c9 50%, #1ca2f0 100%);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Neumorphic soft shadow base */
+/* NEUMORPHIC VARIABLES */
 :root {
-  --bg: #dfefff;
-  --shadow-light: rgba(255, 255, 255, 0.9);
-  --shadow-dark: rgba(0, 0, 0, 0.12);
+  --card-bg: #ffffff;
+  --shadow-light: rgba(255,255,255,0.9);
+  --shadow-dark: rgba(0,0,0,0.15);
 }
 
-/* ----------------------- */
-/* CARD */
-/* ----------------------- */
+/* MAIN CARD (same as your layout) */
 .card {
   width: 900px;
   height: 650px;
-  padding: 35px;
+  padding: 40px;
   border-radius: 30px;
-  background: var(--bg);
 
-  /* Neumorphism */
-  box-shadow:
-      25px 25px 55px var(--shadow-dark),
-      -25px -25px 55px var(--shadow-light);
+  background: transparent; /* Keep your original look */
 
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* APP TITLE */
 h1 {
   font-size: 42px;
+  color: #002c4d;
   font-weight: 800;
-  color: #163b60;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
-/* ----------------------- */
-/* INPUT + BUTTON */
-/* ----------------------- */
+/* SEARCH ROW */
 .search-row {
   width: 100%;
   display: flex;
-  gap: 18px;
+  gap: 15px;
 }
 
+/* INPUT — Neumorphic (PRESSED) */
 .input {
   flex: 1;
-  height: 52px;
-  border-radius: 16px;
+  height: 55px;
+  border-radius: 15px;
   border: none;
   padding: 0 18px;
-  background: var(--bg);
+  font-size: 19px;
 
-  font-size: 20px;
+  background: #ffffffcc;
 
   box-shadow:
-    inset 8px 8px 16px var(--shadow-dark),
-    inset -8px -8px 16px var(--shadow-light);
+    inset 6px 6px 12px var(--shadow-dark),
+    inset -6px -6px 12px var(--shadow-light);
 }
 
+/* BUTTON — Neumorphic (RAISED) */
 .get-btn {
-  min-width: 150px;
-  height: 52px;
-  border-radius: 16px;
+  width: 150px;
+  height: 55px;
+  border-radius: 15px;
+  font-size: 18px;
+  font-weight: 600;
   border: none;
   cursor: pointer;
 
-  background: var(--bg);
-  font-size: 18px;
-  font-weight: 600;
-  color: #164b80;
+  background: #ffffffee;
 
-  /* Elevated soft shadow */
   box-shadow:
-    -8px -8px 16px var(--shadow-light),
-    8px 8px 16px var(--shadow-dark);
+    -6px -6px 12px var(--shadow-light),
+    6px 6px 12px var(--shadow-dark);
 }
 
 .get-btn:active {
   box-shadow:
-    inset 8px 8px 16px var(--shadow-dark),
-    inset -8px -8px 16px var(--shadow-light);
+    inset 6px 6px 12px var(--shadow-dark),
+    inset -6px -6px 12px var(--shadow-light);
 }
 
-/* ----------------------- */
-/* ICON + TEMP */
-/* ----------------------- */
+/* WEATHER ICON */
 .icon {
   margin-top: 40px;
 }
 
+/* TEMP */
 .temp {
-  margin-top: 18px;
+  margin-top: 15px;
   font-size: 90px;
-  font-weight: 800;
-  color: #0b2a43;
+  font-weight: 900;
+  color: #002c4d;
 
-  text-shadow: 
-      4px 4px 6px rgba(0,0,0,0.1),
-      -2px -2px 4px rgba(255,255,255,0.7);
+  text-shadow:
+    3px 3px 5px rgba(0,0,0,0.25);
 }
 
+/* DESC */
 .desc {
-  margin-top: 8px;
+  margin-top: 5px;
   font-size: 22px;
   font-weight: 600;
-  color: #274761;
+  color: #083a5a;
 }
 
-/* ----------------------- */
-/* STATS BOXES */
-/* ----------------------- */
+/* STATS CONTAINER (same position) */
 .stats {
   position: absolute;
-  bottom: 32px;
-  left: 34px;
-  right: 34px;
+  bottom: 40px;
+  left: 40px;
+  right: 40px;
 
   display: flex;
   justify-content: space-between;
-  gap: 22px;
+  gap: 25px;
 }
 
+/* EACH STAT — Neumorphic (RAISED CARD) */
 .stat {
   flex: 1;
   padding: 22px;
   border-radius: 20px;
-  text-align: left;
+  background: var(--card-bg);
 
-  background: var(--bg);
-
-  /* soft raised */
   box-shadow:
-    -10px -10px 20px var(--shadow-light),
-     10px 10px 20px var(--shadow-dark);
+    -12px -12px 24px var(--shadow-light),
+    12px 12px 24px var(--shadow-dark);
 }
 
 .stat h3 {
   font-size: 18px;
   color: #446b8a;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .stat p {
   font-size: 26px;
-  font-weight: 700;
-  color: #0c395e;
+  font-weight: 800;
+  color: #002c4d;
 }
+
 </style>
 </head>
 
